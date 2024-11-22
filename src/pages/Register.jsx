@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { ChevronLeft, IdCard, Lock, Phone } from 'lucide-react';
 import logoDefault from '../assets/default_logo.svg';
-import api from '../utils/api';  // Importe o arquivo de API para fazer a requisição
-import { useNavigate } from 'react-router-dom';  // Importe o useNavigate
+import api from '../utils/api';
+import { useNavigate } from 'react-router-dom';
 
 export default function Register() {
     const [fullname, setFullname] = useState('');
@@ -11,44 +11,52 @@ export default function Register() {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [termsAccepted, setTermsAccepted] = useState(false);
     const [error, setError] = useState('');
-    const [success, setSuccess] = useState('');  // Novo estado para sucesso
+    const [success, setSuccess] = useState('');
 
-    const navigate = useNavigate();  // Crie uma instância do navigate
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
-        // Validação simples
+    
         if (password !== confirmPassword) {
             setError("As senhas não coincidem!");
             setSuccess('');
             return;
         }
-
+    
         try {
             const response = await api.post('/v1/register', {
                 fullname,
                 phone,
                 password,
             });
-            // Se o registro for bem-sucedido, mostra a mensagem de sucesso e redireciona
+    
+            // Captura o token e o id da resposta
+            const { token, id } = response.data;
+            
+            // Armazena o token e o id no localStorage
+            localStorage.setItem('authToken', token);
+            localStorage.setItem('userId', id);  // Armazena o id do usuário
+    
+            // Exibe mensagem de sucesso e redireciona
             setSuccess('Registro realizado com sucesso! Você será redirecionado.');
             setError('');
             setTimeout(() => {
-                navigate('/');  // Redireciona para a home (página inicial)
-            }, 2000); // Espera 2 segundos antes de redirecionar
+                navigate('/');  // Redireciona para a página inicial
+            }, 2000);
         } catch (err) {
             setError(err.response?.data?.message || "Verifique com o time de suporte o motivo de não ser realizado o registro!");
             setSuccess('');
         }
     };
+    
 
     return (
         <div>
-            {/* Header (Icon with Register) */}
+            {/* Header */}
             <div className="flex items-center p-4">
-                <button>
-                    <ChevronLeft className="text-[#00C8FF]" />
+                <button onClick={() => navigate(-1)}> 
+                    <ChevronLeft className="text-[#FF3C3A]" />
                 </button>
                 <h1 className="flex-1 text-center text-lg font-semibold text-white">
                     Registre-se
@@ -62,7 +70,7 @@ export default function Register() {
                     </p>
                 </div>
 
-                {/* Inputs */}
+                {/* Formulário de Registro */}
                 <form onSubmit={handleSubmit} className="p-4 flex flex-col gap-2">
                     <div className="relative">
                         <label className="sr-only">Nome completo</label>
@@ -120,7 +128,7 @@ export default function Register() {
                         </span>
                     </div>
 
-                    {/* Terms and Conditions */}
+                    {/* Checkbox para termos e condições */}
                     <div className="flex items-center px-4">
                         <input
                             type="checkbox"
@@ -134,15 +142,15 @@ export default function Register() {
                         </label>
                     </div>
 
-                    {/* Error and Success messages */}
+                    {/* Exibição de mensagens de erro e sucesso */}
                     {error && <div className="text-red-500 text-center mt-2">{error}</div>}
                     {success && <div className="text-green-500 text-center mt-2">{success}</div>}
 
-                    {/* Register Button */}
+                    {/* Botão de Registro */}
                     <div className="p-4">
                         <button
                             type="submit"
-                            className="w-full bg-[#00C8FF] p-2 rounded-xl rounded-tr-none"
+                            className="w-full bg-[#FF3C3A] p-2 rounded-xl rounded-tr-none"
                             disabled={!termsAccepted}
                         >
                             <span className="text-sm font-medium text-white">
