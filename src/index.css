@@ -5,9 +5,11 @@
 :root {
     background-color: #181818;
     font-family: 'Schibsted Grotesk', Helvetica, sans-serif;
-
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
 }
+
+/* Limita o layout em dispositivos desktop para parecer com mobile */
+
 

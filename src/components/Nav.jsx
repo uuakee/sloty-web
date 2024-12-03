@@ -1,31 +1,50 @@
-import { Check, CheckCheck, Home, User, Users, Wallet2 } from "lucide-react";
+import { Rocket, User, Users, Wallet2 } from "lucide-react";
+import { useNavigate, useLocation } from "react-router-dom";
+import '../App.css';
 
 export default function Nav() {
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    const isActive = (path) => location.pathname === path;
+
     return (
-            <div class="fixed bottom-0 left-0 z-50 w-full h-16 bg-background-600 border-t border-background-400">
-                <div class="grid h-full max-w-lg grid-cols-4 mx-auto font-medium">
-                    <button type="button" class="inline-flex flex-col items-center justify-center px-5 group">
-                        <Home className="w-5 text-[#FF3C3A]" />
-                        <span class="text-xs text-[#FF3C3A]">Home</span>
+        <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2 z-50">
+            <div className="bg-black/40 backdrop-blur-lg rounded-full px-6 py-3">
+                <div className="flex items-center gap-8">
+                    <button 
+                        onClick={() => navigate('/')}
+                        type="button" 
+                        className="flex flex-col items-center group"
+                    >
+                        <div className={`p-3 rounded-full ${isActive('/') ? 'bg-[#FF3C3A]' : 'bg-transparent'}`}>
+                            <Rocket className={`w-6 h-6 ${isActive('/') ? 'text-white' : 'text-white/60 group-hover:text-white'} transition-colors`} />
+                        </div>
                     </button>
 
-                    <button type="button" class="inline-flex flex-col items-center justify-center px-5 group">
-                        <Users className="w-5 text-white" />
-                        <span class="text-xs text-white">Afiliados</span>
+                    <button type="button" className="flex flex-col items-center group">
+                        <div className="p-2 rounded-full bg-transparent">
+                            <Users className="w-5 text-white/60 group-hover:text-white transition-colors" />
+                        </div>
                     </button>
 
-                    <button type="button" class="inline-flex flex-col items-center justify-center px-5 group">
-                        <Wallet2 className="w-5 text-white" />
-                        <span class="text-xs text-white">Depósito</span>
+                    <button type="button" className="flex flex-col items-center group">
+                        <div className="p-2 rounded-full bg-transparent">
+                            <Wallet2 className="w-5 text-white/60 group-hover:text-white transition-colors" />
+                        </div>
                     </button>
 
-
-                    <button type="button" class="inline-flex flex-col items-center justify-center px-5 group">
-                        <User className="w-5 text-white" />
-                        <span class="text-xs text-white">Perfil</span>
+                    <button 
+                        onClick={() => navigate('/profile')}
+                        type="button" 
+                        className="flex flex-col items-center group"
+                    >
+                        <div className={`p-3 rounded-full ${isActive('/profile') ? 'bg-[#FF3C3A]' : 'bg-transparent'}`}>
+                            <User className={`w-6 h-6 ${isActive('/profile') ? 'text-white' : 'text-white/60 group-hover:text-white'} transition-colors`} />
+                        </div>
                     </button>
-
                 </div>
             </div>
+        </div>
     )
 } 

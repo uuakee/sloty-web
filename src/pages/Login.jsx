@@ -1,4 +1,4 @@
-import { ChevronLeft, Lock, Phone, X } from "lucide-react";
+import { Lock, Phone, X } from "lucide-react";
 import { useState } from "react";
 import api from '../utils/api';
 import logoDefault from '../assets/default_logo.svg';
@@ -34,19 +34,16 @@ export default function LoginModal({ onClose }) {
                 </button>
                 <div className="flex flex-col items-center">
                     <img src={logoDefault} alt="Logo" width={90} className="mx-auto mb-4" />
-                    <p className="text-white text-center font-light mb-4">
-                        Volte a jogar e<br />fature muito!
-                    </p>
                 </div>
                 <form onSubmit={handleLogin} className="flex flex-col gap-2">
                     <div className="relative">
                         <label className="sr-only">Telefone</label>
                         <input
                             type="text"
-                            placeholder="Digite seu melhor número"
+                            placeholder="Digite o número cadastrado"
                             value={phone}
                             onChange={(e) => setPhone(e.target.value)}
-                            className="w-full rounded-md border-gray-300 p-3 shadow-sm sm:text-sm"
+                            className="w-full rounded-md border-gray-300 bg-background-800 p-3 shadow-sm sm:text-sm text-white"
                         />
                         <span className="absolute inset-y-0 right-4 flex items-center text-gray-500">
                             <Phone className="w-4 h-4" />
@@ -60,7 +57,7 @@ export default function LoginModal({ onClose }) {
                             placeholder="Digite sua senha segura"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
-                            className="w-full rounded-md border-gray-300 p-3 shadow-sm sm:text-sm"
+                            className="w-full rounded-md border-gray-300 bg-background-800 p-3 shadow-sm sm:text-sm text-white"
                         />
                         <span className="absolute inset-y-0 right-4 flex items-center text-gray-500">
                             <Lock className="w-4 h-4" />
@@ -75,6 +72,15 @@ export default function LoginModal({ onClose }) {
                     >
                         Acesse sua conta!
                     </button>
+
+                    <div className="mt-4 flex justify-between">
+                            <a className="text-[#FF3C3A]" href="#">
+                                Fale com suporte
+                            </a>
+                            <a className="text-[#FF3C3A]">
+                                Cadastre-se
+                            </a>
+                    </div>
                 </form>
             </div>
         </div>

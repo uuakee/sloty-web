@@ -13,10 +13,14 @@ import afiliadoCard from '/default_afiliado.png'
 import roletaCard from '/default_roleta.png'
 import surpresaCard from '/default_surpresa.png'
 import Nav from './components/Nav'
+import './global.css'
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 function App() {
   return (
-    <div>
+    <div className='only-mobile'>
       <Header />
       <Nav />
       <div className=''>
